@@ -1,11 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add to cart using - HTML, CSS, and TailwindCSS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
+    <title>Shopping Cart | Premium Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            600: '#6366f1',
+                            700: '#4f46e5',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
 </head>
-<body>
-    <div id="app">This is Add to cart project</div>
+
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <div
+        class="container w-full sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 lg:py-12">
+        <div class="cart-card flex flex-col lg:flex-row min-h-[500px] md:min-h-[600px] xl:min-h-[700px]">
+
+            <!-- Left Section: Cart Items -->
+            <div class="flex-1 bg-white p-6 md:p-8 lg:p-12 xl:p-16">
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-10 border-b pb-8">
+                    <h1 class="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-800">Shopping Cart</h1>
+                    <span class="text-lg font-medium text-gray-500">0 Items</span>
+                </div>
+
+                <!-- Table Header -->
+                <div class="hidden md:flex mb-6 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                    <div class="flex-[2]">Product Details</div>
+                    <div class="flex-1 text-center">Quantity</div>
+                    <div class="flex-1 text-center">Price</div>
+                    <div class="flex-1 text-center">Total</div>
+                </div>
+
+                <!-- Cart Item 1 -->
+                <div class="flex flex-col md:flex-row items-center py-6 border-b group">
+                    <div class="flex-[2] flex items-center gap-6 w-full">
+                        <img src="./images/laptop.png" alt="Gaming Laptop" class="product-img">
+                        <div class="flex flex-col">
+                            <h3 class="font-bold text-lg text-gray-800">Gaming Laptop</h3>
+                            <span class="text-indigo-500 text-sm mb-2">Electronics</span>
+                            <button
+                                class="text-gray-400 text-sm hover:text-red-500 transition-colors self-start">Remove</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-between w-full mt-6 md:mt-0 md:contents">
+                        <div class="flex-1 flex justify-center items-center gap-2 sm:gap-4">
+                            <button class="quantity-btn"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <input type="text" value="0"
+                                class="w-8 sm:w-10 text-center font-semibold text-gray-700 outline-none" readonly>
+                            <button class="quantity-btn"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                        <div class="flex-1 text-center font-bold text-gray-700 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-xs mr-1"></i>0.00</div>
+                        <div class="flex-1 text-center font-bold text-gray-800 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</div>
+                    </div>
+                </div>
+
+                <!-- Cart Item 2 -->
+                <div class="flex flex-col md:flex-row items-center py-6 border-b">
+                    <div class="flex-[2] flex items-center gap-6 w-full">
+                        <img src="./images/headphones.png" alt="Wireless Headphones" class="product-img">
+                        <div class="flex flex-col">
+                            <h3 class="font-bold text-lg text-gray-800">Wireless Headphones</h3>
+                            <span class="text-indigo-500 text-sm mb-2">Electronics</span>
+                            <button
+                                class="text-gray-400 text-sm hover:text-red-500 transition-colors self-start">Remove</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-between w-full mt-6 md:mt-0 md:contents">
+                        <div class="flex-1 flex justify-center items-center gap-2 sm:gap-4">
+                            <button class="quantity-btn"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <input type="text" value="0"
+                                class="w-8 sm:w-10 text-center font-semibold text-gray-700 outline-none" readonly>
+                            <button class="quantity-btn"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                        <div class="flex-1 text-center font-bold text-gray-700 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-xs mr-1"></i>0.00</div>
+                        <div class="flex-1 text-center font-bold text-gray-800 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</div>
+                    </div>
+                </div>
+
+                <!-- Cart Item 3 -->
+                <div class="flex flex-col md:flex-row items-center py-6 border-b">
+                    <div class="flex-[2] flex items-center gap-6 w-full">
+                        <img src="./images/watch.png" alt="Smart Watch" class="product-img">
+                        <div class="flex flex-col">
+                            <h3 class="font-bold text-lg text-gray-800">Smart Watch</h3>
+                            <span class="text-indigo-500 text-sm mb-2">Accessories</span>
+                            <button
+                                class="text-gray-400 text-sm hover:text-red-500 transition-colors self-start">Remove</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-between w-full mt-6 md:mt-0 md:contents">
+                        <div class="flex-1 flex justify-center items-center gap-2 sm:gap-4">
+                            <button class="quantity-btn"><i class="fa-solid fa-minus text-xs"></i></button>
+                            <input type="text" value="0"
+                                class="w-8 sm:w-10 text-center font-semibold text-gray-700 outline-none" readonly>
+                            <button class="quantity-btn"><i class="fa-solid fa-plus text-xs"></i></button>
+                        </div>
+                        <div class="flex-1 text-center font-bold text-gray-700 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-xs mr-1"></i>0.00</div>
+                        <div class="flex-1 text-center font-bold text-gray-800 text-sm sm:text-base"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</div>
+                    </div>
+                </div>
+
+                <!-- Continue Shopping -->
+                <a href="#"
+                    class="inline-flex items-center gap-3 text-indigo-600 font-bold mt-12 hover:gap-4 transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Continue Shopping
+                </a>
+            </div>
+
+            <!-- Right Section: Summary -->
+            <div
+                class="w-full lg:w-[380px] xl:w-[450px] summary-section rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl">
+                <h2 class="text-xl md:text-2xl xl:text-3xl font-bold text-gray-800 border-b pb-6 md:pb-8 mb-6 md:mb-8">
+                    Order Summary</h2>
+
+                <div class="flex justify-between mb-6">
+                    <span class="font-semibold text-gray-500">Total Items</span>
+                    <span class="font-bold text-gray-800">0</span>
+                </div>
+
+                <div class="flex flex-col gap-4 mb-8">
+                    <label class="font-semibold text-gray-500">Shipping</label>
+                    <div class="relative">
+                        <select
+                            class="w-full p-4 pr-10 bg-white border border-gray-100 rounded-lg appearance-none font-medium text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>Standard Delivery - 50.00</option>
+                            <option>Express Delivery - 150.00</option>
+                        </select>
+                        <i
+                            class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4 mb-4">
+                    <label class="font-semibold text-gray-500 uppercase text-xs tracking-wider">Promo Code</label>
+                    <div class="flex overflow-hidden rounded-lg shadow-sm">
+                        <input type="text" placeholder="Enter code"
+                            class="flex-1 p-4 outline-none border border-r-0 border-gray-100">
+                        <button
+                            class="bg-indigo-600 text-white px-6 font-bold hover:bg-indigo-700 transition-colors uppercase text-sm">Apply</button>
+                    </div>
+                </div>
+                <div class="promo-tag mb-10">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Promo code applied: <span class="font-bold uppercase ml-1">SAVE-20%</span>
+                </div>
+
+                <div class="space-y-4 pt-8 border-t mb-8">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Total Price</span>
+                        <span class="font-bold"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Shipping</span>
+                        <span class="font-bold"><i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Discount</span>
+                        <span class="font-bold text-emerald-500">-<i
+                                class="fa-solid fa-bangladeshi-taka-sign text-sm mr-1"></i>0.00</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-lg font-bold text-gray-800">Grand Total</span>
+                    <span class="text-2xl font-black text-gray-900"><i
+                            class="fa-solid fa-bangladeshi-taka-sign text-lg mr-1"></i>0.00</span>
+                </div>
+
+                <button class="btn-primary mb-6">
+                    <i class="fa-solid fa-lock text-sm opacity-60"></i>
+                    Proceed to Checkout
+                </button>
+
+                <div class="flex items-center justify-center gap-2 text-gray-400 text-sm">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Secure payment
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </body>
+
 </html>
