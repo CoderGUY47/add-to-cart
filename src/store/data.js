@@ -10,7 +10,7 @@ export const CART = [
     brand: "Sony",
     availabilityStatus: "In Stock",
     isSelected: true,
-    isWishListed: false,
+    isWishlisted: false,
     stock: 65,
     ratings: 4.8,
     price: 399.99,
@@ -28,7 +28,7 @@ export const CART = [
     brand: "Apple",
     availabilityStatus: "In Stock",
     isSelected: true,
-    isWishListed: false,
+    isWishlisted: false,
     stock: 40,
     ratings: 4.7,
     price: 429.99,
@@ -46,7 +46,7 @@ export const CART = [
     brand: "Nike",
     availabilityStatus: "In Stock",
     isSelected: true,
-    isWishListed: false,
+    isWishlisted: false,
     stock: 110,
     ratings: 4.6,
     price: 150.0,
@@ -64,7 +64,7 @@ export const CART = [
     brand: "Dell",
     availabilityStatus: "Limited Stock",
     isSelected: true,
-    isWishListed: false,
+    isWishlisted: false,
     stock: 20,
     ratings: 4.5,
     price: 1199.99,
@@ -80,9 +80,9 @@ export const CART = [
     ],
     category: "Home Entertainment",
     brand: "Samsung",
-    availabilityStatus: "In Stock",
+    availabilityStatus: "Limited Stock",
     isSelected: true,
-    isWishListed: false,
+    isWishlisted: false,
     stock: 12,
     ratings: 4.4,
     price: 699.99,
@@ -126,4 +126,4 @@ export const PROMOTIONS = [
   },
 ];
 
-export const TAX_RATE = 0.08;
+export const TAX_RATE = 8;

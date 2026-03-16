@@ -1,38 +1,67 @@
 import { CART } from "./store/data.js";
 import Cart from "./Components/Cart/Cart.js";
-import { getState, setState, subscribe } from "./store/store.js";
+import OrderSummary from "./Components/OrderSummary/OrderSummary.js";
+import {
+  getState,
+  setState,
+  subscribe,
+  toggleSelect,
+  toggleSelectAll,
+  increaseQuantity,
+  decreaseQuantity,
+  removeItem,
+  toggleWishlist,
+  clearCart,
+  toggleMethod,
+} from "./store/store.js";
+
+const render = (state) => {
+  document.getElementById("cart-container").innerHTML =
+    Cart(state) + OrderSummary(state);
+};
 
 const init = () => {
-  // Initial state rendering
-  setState(() => {
-    return {
-      cart: [...CART],
-      selectedItems: [...CART],
-      wishlist: [],
-      isAllSelected: true,
-      method: "standard",
-      promoCode: null,
-      promoError: null,
-    };
-  });
+  // Initial state
+  setState(() => ({
+    cart: [...CART],
+    selectedItems: [...CART],
+    wishlist: [],
+    isAllSelected: true,
+    shipMethod: "standard",
+    promotion: {
+      code: null,
+      error: null,
+    },
+  }));
 
-  document.getElementById("cart-container").innerHTML = `${Cart(CART)}`;
+  subscribe(render);
+  render(getState());
 };
 
 document.getElementById("cart-container").addEventListener("click", (e) => {
-  if (e.target.closest("#cart-container")) {
-    // Select All items
-    if (!e.target.closest("#select-all")) return;
+  if (e.target.closest("#clear-all")) clearCart();
 
-    const ischecked = e.target.checked;
-    setState((state) => {
-      const { cart } = state;
-      cart.map((item) => (item.isSelected = ischecked));
+  const selectAll = e.target.closest("#select-all");
+  if (selectAll) toggleSelectAll(e.target.checked);
 
-      return { ...state, cart: cart, isAllSelected: ischecked };
-    });
+  const product = e.target.closest(".product-item");
+  if (product) {
+    const id = Number.parseInt(product.dataset.id);
 
-    document.getElementById("cart-container").innerHTML = `${Cart(CART)}`;
+    if (e.target.matches(".select-item")) toggleSelect(id);
+    if (e.target.closest("#increase-quantity")) increaseQuantity(id);
+    if (e.target.closest("#decrease-quantity")) decreaseQuantity(id);
+    if (e.target.closest("#remove-button")) removeItem(id);
+    if (e.target.closest("#wish-button")) toggleWishlist(id);
+  }
+
+  const shipMethod = e.target.closest(".method");
+
+  if (shipMethod) {
+    const method = shipMethod.dataset.method;
+    toggleMethod(method);
+    console.clear();
+    console.log(getState());
   }
 });
 

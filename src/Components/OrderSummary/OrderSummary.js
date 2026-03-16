@@ -1,28 +1,28 @@
+import { SHIPPING_METHODS } from "../../store/data.js";
 import ShippingMethod from "./ShippingMethod.js";
 import PromoCard from "./PromoCard.js";
 import CheckoutButton from "./CheckoutButton.js";
-
-import { CART } from "../../store/data.js";
-import { SHIPPING_METHODS } from "../../store/data.js";
-import { SHIPPING_RATES } from "../../store/data.js";
-import { PROMOTIONS } from "../../store/data.js";
-import { TAX_RATE } from "../../store/data.js";
 
 import {
   originalPrice,
   subTotal,
   itemSavings,
-  itemDicounts,
   shipAmount,
   taxAmount,
 } from "../../pricing/pricing.js";
 
-export default function OrderSummary() {
-  const items = CART;
+export default function OrderSummary({ selectedItems: items, shipMethod }) {
+  const sub_total = items.length && subTotal(items);
+  const ship_amount = items.length && shipAmount(shipMethod);
+  const tax_amount = items.length && taxAmount();
+  const item_savings = items.length && itemSavings(items);
+  const original_price = items.length && originalPrice(items);
+  const grand_total =
+    items.length && (sub_total + ship_amount + tax_amount).toFixed(2);
 
   return `
     <!-- Order Summary -->
-    <div class="flex flex-col flex-1 gap-4 bg-gray-200 px-4 py-4 rounded-lg shadow-lg overflow-hidden">
+    <div class="h-fit flex flex-col gap-4 p-4 bg-gray-50 rounded-lg shadow-lg ">
       <!-- Tittle -->
       <h1 class="text-2xl font-semibold">Order Summary</h1>
 
@@ -31,18 +31,18 @@ export default function OrderSummary() {
       <div class="flex flex-col gap-4 text-sm text-gray-700">
         <ul class="">
           <li class="flex justify-between border-b border-gray-300 p-2">
-            <span class="">Items (${items.length})</span>
-            <span class="font-semibold">$${subTotal(items)}</span>
-          </li>
-
-          <li class="flex justify-between border-b border-gray-300 p-2">
             <span class="">Original Price</span>
-            <span class="font-semibold">$${originalPrice(items)}</span>
+            <span class="font-semibold">$${original_price.toFixed(2)}</span>
           </li>
 
           <li class="flex justify-between border-b border-gray-300 p-2">
-            <span class="">Item Discounts</span>
-            <span class="font-semibold">$${itemDicounts(items)}%</span>
+            <span class="">Discounted Price</span>
+            <span class="font-semibold">$${sub_total.toFixed(2)}</span>
+          </li>
+
+          <li class="flex justify-between border-b border-gray-300 p-2">
+            <span class="">Total Savings</span>
+            <span class="font-semibold text-green-500">-$${item_savings.toFixed(2)}</span>
           </li>
         </ul>
 
@@ -65,31 +65,33 @@ export default function OrderSummary() {
         <ul class="">
           <li class="flex justify-between border-b border-gray-300 p-2">
             <span class="">Subtotal</span>
-            <span class="font-semibold">$${subTotal(items)}</span>
+            <span class="font-semibold">$${sub_total.toFixed(2)}</span>
           </li>
 
           <li class="flex justify-between border-b border-gray-300 p-2">
             <span class="">Shipping</span>
-            <span class="font-semibold">$12,00.00</span>
+            <span class="font-semibold">$${ship_amount.toFixed(2)}</span>
           </li>
 
           <li class="flex justify-between border-b border-gray-300 p-2">
             <span class="">Tax (8%)</span>
-            <span class="font-semibold">$${TAX_RATE}</span>
+            <span class="font-semibold">$${tax_amount.toFixed(2)}</span>
           </li>
 
           <li class="flex justify-between border-b border-gray-300 p-2">
             <span class="">Grand Total</span>
-            <span class="font-semibold">$12,00.00</span>
+            <span class="font-semibold">$${grand_total}</span>
           </li>
         </ul>
 
         <!-- Checkout Button -->
         ${CheckoutButton()}
 
-        <div>
-          <p>🗹 Tip: Select items to order only specific ones</p>
-          <p>SSL encrypted · 256-bit secure payment</p>
+        <div class="text-center text-xs opacity-65">
+          <p>
+            <i class="fa-solid fa-lock"></i>
+            Secure payment
+          </p>
         </div>
       </div>
     </div>

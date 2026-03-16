@@ -18,7 +18,7 @@ export const originalPrice = (items) =>
 // Discounted price of all items - (with quantity)
 export const subTotal = (items) =>
   items.reduce(
-    (sum, item) => sum + lineTotal(item.price, item.discount, item.quantity),
+    (sum, item) => sum + lineTotal(item.price, item?.discount, item.quantity),
     0,
   );
 
@@ -27,13 +27,13 @@ export const itemSavings = (items) => originalPrice(items) - subTotal(items);
 
 // Total discount of all items
 export const itemDicounts = (items) =>
-  items.reduce((sum, item) => sum + item.discount, 0);
+  items.reduce((sum, item) => sum + item?.discount, 0);
 
 // Shipping amount
-export const shipAmount = (amount, method) => amount * SHIPPING_RATES[method];
+export const shipAmount = (method) => SHIPPING_RATES[method];
 
 // Tax amount included
-export const taxAmount = (amount) => amount * TAX_RATE;
+export const taxAmount = () => calcDiscount(TAX_RATE);
 
 // export const applyPromo = (promoCode, amount) =>
 //   promoCode.trim() === PROMO.code

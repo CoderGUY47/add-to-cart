@@ -1,20 +1,18 @@
-import { getState } from "../../store/store.js";
-import OrderSummary from "../OrderSummary/OrderSummary.js";
-import ProductItem from "../Products/ProductItem.js";
+import EmptyCart from "./EmptyCart.js";
+import ProductItem from "../Product/ProductItem.js";
 import WishlistButton from "./WishlistButton.js";
 import ClearAllButton from "./ClearAllButton.js";
 
-export default function Cart(products) {
-  const { isAllSelected } = getState();
-
+export default function Cart({ cart, isAllSelected }) {
   return `
-    <div class="flex flex-col flex-2 gap-4 bg-gray-100 bg-opacity-85 rounded-lg shadow-lg overflow-hidden">
-      <div class="flex  justify-between items-center p-4">
+  <!-- Cart Products -->
+    <div class="w-full h-fit flex flex-col bg-gray-50 rounded-lg shadow-lg ">
+      <div class="flex justify-between items-center p-4">
         <h1 class="flex items-center gap-4 text-2xl font-semibold">
           Shoping Cart
           <span
             class="text-xs font-semibold bg-purple-500 text-gray-50 px-2 py-1 rounded-full"
-            >${products.length} Items</span
+            >${cart.length} Items</span
           >
         </h1>
 
@@ -34,10 +32,10 @@ export default function Cart(products) {
             name="select-all"
             id="select-all"
             ${isAllSelected ? "checked" : ""}
-            class="scale-120"
+            class="scale-120 cursor-pointer"
           />
           <div
-            class="flex-1 grid grid-cols-6 text-xs uppercase font-semibold text-gray-600"
+            class="flex-1 grid grid-cols-6 text-xs capitalize text-gray-600"
           >
             <p class="col-span-3">products</p>
             <p class="text-center hidden md:block">quantity</p>
@@ -46,10 +44,20 @@ export default function Cart(products) {
           </div>
         </li>
 
-        ${products.map((product) => ProductItem(product)).join("")}
+        ${cart.length === 0 ? EmptyCart() : cart.map((product) => ProductItem(product)).join("")}
       </ul>
-    </div>
 
-    ${OrderSummary()}
+      <div class="flex justify-between p-4 text-blue-900 bg-blue-200/65 border-t border-t-neutral-300 text-sm">
+        <a href="#" class="sm:hidden md:flex md:items-center md:gap-2 hover:underline">
+          <i class="fa-solid fa-arrow-left-long"></i>
+          <span class="">Continue shopping</span>
+        </a>
+
+        <p class="flex items-center gap-1">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="hidden md:inline-block">Only selected items are included in checkout.</span>
+        </p>
+      </div>
+    </div>
   `;
 }

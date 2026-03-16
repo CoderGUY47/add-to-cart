@@ -5,7 +5,7 @@ import Quantity from "./Quantity.js";
 import Price from "./Price.js";
 import Ratings from "./Ratings.js";
 
-import { discountedPrice } from "../../pricing/pricing.js";
+import { lineTotal } from "../../pricing/pricing.js";
 
 export default function ProductItem(product) {
   const {
@@ -21,21 +21,24 @@ export default function ProductItem(product) {
     discount,
     availabilityStatus,
     isSelected,
+    isWishlisted,
   } = product;
 
   return `
     <li
       data-id="${id}"
-      class="${!isSelected && "opacity-50"} product-item flex gap-2 hover:bg-gray-200/50 hover:bg-opacity-15 p-4 border-t border-gray-300"
+      data-checked="${isSelected}"
+      data-wishlisted="${isWishlisted}"
+      class="${isSelected ? "border-l-3  border-l-blue-500 bg-blue-100/50 hover:bg-blue-100" : "opacity-60"} product-item flex gap-3 p-4 border-t border-t-gray-300"
     >
       <input
         type="checkbox"
-        name="select"
-        id="select"
+        name="select-item"
+        id="select-item"
         ${isSelected && "checked"}
-        class="scale-120"
+        class="select-item scale-120 cursor-pointer"
       />
-      <div class="flex-1 grid grid-cols-2 gap-y-4 sm:grid-cols-3 md:grid-cols-6">
+      <div class="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
       
         <!-- Product -->
         <div class="order-1 sm:col-span-2 md:col-span-3 flex items-center gap-2">
@@ -61,7 +64,7 @@ export default function ProductItem(product) {
             <!-- Buttons -->
             <div class="flex gap-2 text-gray-600">
               <!-- Wish button -->
-              ${WishButton(id)}
+              ${WishButton(isWishlisted)}
 
               <!-- Remove button -->
               ${RemoveButton(id)}
@@ -81,7 +84,7 @@ export default function ProductItem(product) {
 
         <!-- Total -->
         <div class="order-4 text-end flex items-center justify-end">
-          <span class="text-lg text-gray-600 font-semibold">$${discountedPrice(price, discount).toFixed(2)}</span>
+          <span class="text-lg text-gray-600 font-semibold">$${lineTotal(price, discount, quantity).toFixed(2)}</span>
         </div>
       </div>
     </li>

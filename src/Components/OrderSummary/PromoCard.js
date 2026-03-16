@@ -15,8 +15,8 @@ export default function PromoCard() {
         />
         <input
           type="button"
-          value="APPLAY"
-          class="bg-blue-400 text-gray-50 p-2 rounded-lg cursor-pointer"
+          value="APLAY"
+          class="bg-purple-500 text-gray-50 p-2 rounded-lg cursor-pointer"
         />
       </div>
     </fieldset>
